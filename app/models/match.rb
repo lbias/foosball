@@ -8,6 +8,8 @@ class Match < ApplicationRecord
 
   after_initialize :build_teams
 
+  accepts_nested_attributes_for :teams
+
   def add(grouped_players)
     teams.each_with_index do |team, index|
       team.player_ids = grouped_players[index].map(&:id)
@@ -57,5 +59,5 @@ class Match < ApplicationRecord
     unless players.length.in?(2..4)
       errors.add(:players, 'should consist 2-4 for both teams')
     end
-  end  
+  end
 end
