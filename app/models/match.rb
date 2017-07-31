@@ -20,6 +20,19 @@ class Match < ApplicationRecord
 
   def players
     teams.map(&:players).flatten
+  end
+
+  def ended?
+    winner.present?
+  end
+
+  def winner
+    game_winners = games.map(&:winner)
+    game_winners.detect {|winner| game_winners.count(winner) > 1}
+  end
+
+  def scores
+    games.map(&:score).join(', ')
   end  
 
   private

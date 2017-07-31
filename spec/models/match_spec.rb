@@ -37,4 +37,22 @@ RSpec.describe Match, type: :model do
       expect(match.errors[:player]).to include "can't participate both teams"
     end
   end
+
+  describe '#ended?' do
+    let(:match) { create(:match) }
+
+    it { expect(subject).to respond_to(:ended?) }
+
+    it 'returns true when one team won twice' do
+      match.games.create(score: '10:8')
+      expect(match.ended?).to be false
+
+      match.games.create(score: '8:10')
+      expect(match.ended?).to be false
+
+      match.games.create(score: '10:8')
+      expect(match.ended?).to be true
+    end
+
+  end
 end
