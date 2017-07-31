@@ -1,0 +1,10 @@
+header
+  nav
+    .nav-wrapper.container
+      = link_to 'FOOSBALL', root_path, class: 'brand-logo'
+      a.button-collapse data-activates="mobile-nav" href="#"
+        i.material-icons menu
+      ul.right.hide-on-med-and-down
+        li= link_to 'Users', users_path
+      ul#mobile-nav.side-nav
+        li= link_to 'Users', users_path
