@@ -23,5 +23,11 @@ RSpec.describe Match, type: :model do
         expect(match.teams.size).to eq(2)
       end
     end
+
+    it 'is invalid if has less or more than 2 teams' do
+      match.teams << build(:team)
+      match.valid?
+      expect(match.errors[:teams].any?).to be true
+    end
   end
 end

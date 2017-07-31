@@ -5,7 +5,6 @@ class Match < ApplicationRecord
   validates_length_of :teams, is: 2
 
   def add(grouped_players)
-    #todo: add options for grouping players
     teams.each_with_index do |team, index|
       team.player_ids = grouped_players[index].map(&:id)
     end
