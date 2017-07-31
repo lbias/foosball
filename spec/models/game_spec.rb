@@ -14,6 +14,15 @@ RSpec.describe Game, type: :model do
       game.valid?
       expect(game.errors[:scores].any?).to be true
     end
+
+    it { expect(subject).to respond_to(:winner) }
+
+    context '#define_winner callback' do
+      it 'has winner when created' do
+        game = create(:game)
+        expect(game.winner).to be_kind_of(Team)
+      end
+    end    
   end
 
   it '#score shows common score' do
