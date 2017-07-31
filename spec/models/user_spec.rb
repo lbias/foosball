@@ -37,5 +37,19 @@ RSpec.describe User, type: :model do
         expect(ended_match).to be_in(user.won_matches)
       end
     end
+
+    describe '#best_partner' do
+      it { expect(subject).to respond_to(:best_partner) }
+
+      it 'returns player which won with you more than other players' do
+        lucky_user = create(:user, first_name: 'LUCKY')
+        looser = create(:user)
+        create(:match, :ended, users: [user, lucky_user, other_user, looser])
+        create(:match, :ended, users: [user, lucky_user, other_user, looser])
+        create(:match, :ended, users: [other_user, lucky_user, user, looser])
+
+        expect(user.best_partner).to eq lucky_user
+      end
+    end
   end
 end

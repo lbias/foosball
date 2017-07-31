@@ -19,5 +19,14 @@ class User < ApplicationRecord
 
   def matches_stat
     [matches.count, matches.select { |match| match.winner.present? && team_ids.include?(match.winner.id)}.count].join(' - ')
-  end  
+  end
+
+  def best_partner
+    User.joins(teams: [:match, :games])
+        .where.not(team_users: { user_id: id })
+        .where(games: { winner_id: team_ids })
+        .group('first_name')
+        .order('count(games.winner_id) desc')
+        .first
+  end
 end
