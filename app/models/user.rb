@@ -4,8 +4,10 @@ class User < ApplicationRecord
   has_many :team_users
   has_many :teams, through: :team_users
   has_many :matches, through: :teams
-  has_many :games, through: :teams, source: :games  
+  has_many :games, through: :teams, source: :games
 
+  scope :sorted, -> (flag = :asc) { order(first_name: flag) }
+  
   def name
     [first_name, last_name].join(' ')
   end
