@@ -12,4 +12,16 @@ RSpec.describe Match, type: :model do
       expect(match.players).to match_array(players)
     end
   end
+
+  describe 'validations' do
+
+    context 'teams' do
+      it { expect(subject).to respond_to(:teams) }
+      it 'has 2 teams with players' do
+        match = create(:match)
+        expect(match).to be_valid
+        expect(match.teams.size).to eq(2)
+      end
+    end
+  end
 end

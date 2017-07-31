@@ -2,6 +2,8 @@ class Match < ApplicationRecord
   has_many :teams, dependent: :destroy
   has_many :games, dependent: :destroy
 
+  validates_length_of :teams, is: 2
+
   def add(grouped_players)
     #todo: add options for grouping players
     teams.each_with_index do |team, index|
