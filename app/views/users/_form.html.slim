@@ -1,0 +1,20 @@
+.row
+  = form_for @user, html: { class: 'col s12 offset-m3 m6' } do |f|
+    - if @user.errors.any?
+      .col.s12
+        .card-panel.teal
+          span.white-text
+            h5 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+            ul
+              - @user.errors.full_messages.each do |message|
+                li = message
+    .row
+      .input-field.col.s12
+        = f.text_field :first_name, class: 'validate', required: true
+        = f.label :first_name
+    .row
+      .input-field.col.s12
+        = f.text_field :last_name, class: 'validate', required: true
+        = f.label :last_name
+
+    .right-align= f.submit 'Save', class: 'btn'
