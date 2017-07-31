@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :matches, except: [:edit, :update]
+  resources :matches, except: [:edit, :update] do
+    resources :games, only: [:create, :destroy]
+  end
 end
