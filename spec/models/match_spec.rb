@@ -29,5 +29,12 @@ RSpec.describe Match, type: :model do
       match.valid?
       expect(match.errors[:teams].any?).to be true
     end
+
+    it 'is invalid with the same player in both teams' do
+      user = create(:user)
+      match.add([user, user].in_groups(2))
+      match.valid?
+      expect(match.errors[:player]).to include "can't participate both teams"
+    end
   end
 end
