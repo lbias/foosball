@@ -1,0 +1,14 @@
+= form_for [@match, Game.new] do |f|
+  - if f.object.errors.any?
+    .card-panel.teal
+      .white-text
+        strong = "#{pluralize(f.object.errors.count, "error")} prohibited this game from being saved:"
+        ul
+          - f.object.errors.full_messages.each do |message|
+            li = message
+  h5 Score
+  .input-field.col.s4= f.number_field :score1, in: 0..10, autofocus: true
+  .input-field.col.s4= f.number_field :score2, in: 0..10
+  .input-field.col.s4
+    = f.button class: 'btn-floating green' do
+      i.material-icons add
