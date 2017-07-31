@@ -23,4 +23,19 @@ RSpec.describe User, type: :model do
       expect(user.name).to eq('Sam Walton')
     end
   end
+
+  context 'played matches' do
+
+    let!(:user) { create :user }
+    let!(:other_user) { create :user }
+    let!(:ended_match) { create(:match, :ended, users: [user, other_user]) }
+
+    describe '#won_matches' do
+      it { expect(subject).to respond_to(:won_matches) }
+
+      it 'returns matches where player won' do
+        expect(ended_match).to be_in(user.won_matches)
+      end
+    end
+  end
 end
