@@ -4,6 +4,9 @@ class Match < ApplicationRecord
 
   validates_length_of :teams, is: 2
   validate :check_players_in_teams
+  validate :consists_and_limit_players
+
+  after_initialize :build_teams
 
   def add(grouped_players)
     teams.each_with_index do |team, index|
@@ -33,7 +36,7 @@ class Match < ApplicationRecord
 
   def scores
     games.map(&:score).join(', ')
-  end  
+  end
 
   private
 
@@ -42,4 +45,17 @@ class Match < ApplicationRecord
       errors.add(:player, "can't participate both teams")
     end
   end
+
+  def build_teams
+    return if teams.present?
+    Team::COLORS.map do |color|
+      teams.build(color: color)
+    end
+  end
+
+  def consists_and_limit_players
+    unless players.length.in?(2..4)
+      errors.add(:players, 'should consist 2-4 for both teams')
+    end
+  end  
 end
