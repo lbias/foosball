@@ -16,16 +16,13 @@ ActiveRecord::Schema.define(version: 20170731072221) do
     t.integer "score1", default: 0, null: false
     t.integer "score2", default: 0, null: false
     t.integer "match_id"
-    t.integer "games_id"
     t.integer "winner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["games_id"], name: "index_games_on_games_id"
-    t.index ["match_id"], name: "index_games_on_match_id"
-    t.index ["winner_id"], name: "index_games_on_winner_id"
   end
 
   create_table "matches", force: :cascade do |t|
+    t.integer "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,7 +41,6 @@ ActiveRecord::Schema.define(version: 20170731072221) do
     t.integer "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["match_id"], name: "index_teams_on_match_id"
   end
 
   create_table "users", force: :cascade do |t|

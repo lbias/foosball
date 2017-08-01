@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :matches, except: [:edit, :update] do
     resources :games, only: [:create, :destroy]
   end
+
+  resources :statistics
 end
