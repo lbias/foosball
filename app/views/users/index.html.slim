@@ -5,14 +5,17 @@ table.responsive-table.bordered
   thead
     tr
       th Name
-      th Some Statistics
+      th.center-align Matches (won)
+      th Best partner
       th
   tbody
     - @users.each do |user|
       tr
         td
           = link_to user.name, user
-        td
+        td.center-align
+          = user.matches_stat
+        td= user.best_partner.try(:name)
         td.right-align
           => link_to content_tag(:i, 'edit', class: 'material-icons'), [:edit, user], class: 'btn-floating', title: 'Edit'
           = link_to content_tag(:i, 'delete', class: 'material-icons'), user, method: :delete, class: 'btn-floating red', title: 'Delete'

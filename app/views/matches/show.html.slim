@@ -1,0 +1,24 @@
+h4.row.center-align
+  .col.m5.s12= @teams.first.name
+  .col.m2.s12 VS
+  .col.m5.s12= @teams.last.name
+
+br
+.row
+  ul.collection.with-header.center-align.col.m6.offset-m3.s12
+    li.collection-header
+      h4 Games
+    - @games.each_with_index do |game, index|
+      li.collection-item
+        h5 Game #{index + 1}
+        h2= game.score
+        = link_to [@match, game], method: :delete, title: 'Destroy', class: 'remove_link grey-text'
+          i.material-icons clear
+
+    - unless @match.ended?
+      li.collection-item.row
+        = render 'games/form'
+- if @match.ended?
+  .row.center-align
+    => link_to 'Back', matches_path, class: 'btn blue'
+    = link_to 'New Again', new_match_path, class: 'btn green'

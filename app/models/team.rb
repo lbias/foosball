@@ -1,6 +1,8 @@
 class Team < ApplicationRecord
   has_many :team_users
   has_many :players, through: :team_users, class_name: 'User', source: :user
+  belongs_to :match
+  has_many :games, class_name: 'Game', foreign_key: :winner_id
 
   COLORS = %w(red blue)
 

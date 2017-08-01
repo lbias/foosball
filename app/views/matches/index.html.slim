@@ -1,0 +1,24 @@
+.row
+  = link_to 'New match', new_match_path, class: 'btn right'
+  h4 Matches list
+table.responsive-table.bordered
+  thead
+    tr
+      th Created at
+      th Team 1
+      th Team 2
+      th Scores
+      th
+  tbody
+    - @matches.each do |match|
+      tr
+        td
+          = link_to time_ago_in_words(match.created_at), match
+        - match.teams.each do |team|
+          td
+            div
+              => team.name
+              = content_tag :em, 'winner', class: 'grey-text' if match.winner == team
+        td= match.scores
+        td.right-align
+          = link_to content_tag(:i, 'delete', class: 'material-icons'), match, method: :delete, class: 'btn-floating red', title: 'Delete'

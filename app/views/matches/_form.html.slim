@@ -1,0 +1,22 @@
+- users = User.sorted
+.row
+  = form_for @match, html: { class: 'col s12 offset-m2 m8' } do |f|
+    - if @match.errors.any?
+      .col.s12
+        .card-panel.teal
+          span.white-text
+            h5 = "#{pluralize(@match.errors.count, "error")} prohibited this match from being saved:"
+            ul
+              - @match.errors.full_messages.each do |message|
+                li = message
+    .row
+      - @match.teams.each_with_index do |team, index|
+        .col.m6.s6
+          h5 Team #{index + 1}
+          - users.each do |user|
+            p
+              - checked = params[:player_ids].try(:[], index.to_s).try(:include?, user.id.to_s)
+              = check_box_tag "player_ids[#{index}][]", user.id, checked, id: dom_id(user, index)
+              = label_tag dom_id(user, index), user.name
+
+    .right-align= f.submit 'Save', class: 'btn'
