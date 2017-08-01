@@ -3,8 +3,8 @@ class CreateGames < ActiveRecord::Migration[5.1]
     create_table :games do |t|
       t.integer :score1, default: 0, null: false
       t.integer :score2, default: 0, null: false
-      t.references :match, index: true, foreign_key: true
-      t.references :games, :winner, index: true, foreign_key: true
+      t.integer :match_id
+      t.integer :winner_id
 
       t.timestamps null: false
     end
