@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   def best_partner
     User.joins(teams: [:match, :games])
+        .group('users.id')
         .where.not(team_users: { user_id: id })
         .where(games: { winner_id: team_ids })
         .group('first_name')
